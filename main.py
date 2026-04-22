@@ -1,35 +1,27 @@
-from fastapi import FastAPI,Request, HTTPException, status
+from fastapi import FastAPI,Request, HTTPException, status, Depends
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from starlette.exceptions import HTTPException as starletteException
-
 from schemas import PostCreate,PostResponse
+from sqlalchemy import select
+from sqlalchemy.orm import session
+from typing import Annotated
+import models
+from database import Base, engine, get_db
 
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
 app.mount("/static", StaticFiles(directory="static"),name="static")
 
+app.mount("/media",StaticFiles(directory="media"),name="media")
+
 templates = Jinja2Templates(directory="templates")
 
-posts: list[dict] = [
-    {
-        "id": 1,
-        "author": "Pruthvik Shetty",
-        "title": "Getting Started with FastAPI",
-        "content": "FastAPI is a modern, fast web framework for building APIs with Python.",
-        "date_posted": "February 27, 2026"
-    },
-    {
-        "id": 2,
-        "author": "John Doe",
-        "title": "Why Backend Development Matters",
-        "content": "Backend development handles business logic, database interactions, and authentication.",
-        "date_posted": "February 26, 2026"
-    }
-]
+
 
 @app.get("/",include_in_schema=False,name="home")
 @app.get("/posts",include_in_schema=False,name = "posts")
