@@ -1,4 +1,5 @@
 // Error message extraction from API responses
+console.log("UTILS.JS LOADED");
 export function getErrorMessage(error) {
   if (typeof error.detail === "string") {
     return error.detail;
