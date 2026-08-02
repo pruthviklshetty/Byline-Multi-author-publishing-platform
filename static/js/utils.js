@@ -1,5 +1,4 @@
 // Error message extraction from API responses
-console.log("UTILS.JS LOADED");
 export function getErrorMessage(error) {
   if (typeof error.detail === "string") {
     return error.detail;
@@ -22,4 +21,21 @@ export function showModal(modalId) {
 export function hideModal(modalId) {
   const modal = bootstrap.Modal.getInstance(document.getElementById(modalId));
   if (modal) modal.hide();
+}
+
+// XSS prevention for dynamic content insertion
+export function escapeHtml(text) {
+  const div = document.createElement("div");
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+// Date formatting to match server's strftime("%B %d, %Y")
+export function formatDate(dateString) {
+  const date = new Date(dateString);
+  return date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "2-digit",
+  });
 }
