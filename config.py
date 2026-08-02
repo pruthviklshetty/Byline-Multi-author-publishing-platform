@@ -1,6 +1,9 @@
+from pathlib import Path
 from pydantic import SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+print("Current directory:", Path.cwd())
+print(".env exists:", Path(".env").exists())
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
@@ -12,5 +15,4 @@ class Settings(BaseSettings):
     algorithm: str = "HS256"
     access_token_expire_minutes: int = 30
 
-
-settings = Settings()  # type: ignore[call-arg] # Loaded from .env file
+settings = Settings()
