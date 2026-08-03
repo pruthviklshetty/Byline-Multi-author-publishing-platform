@@ -1,4 +1,5 @@
 import asyncio
+asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
@@ -380,5 +381,6 @@ async def populate() -> None:
     print("  Profile pictures saved locally")
 
 
+import asyncio
 if __name__ == "__main__":
     asyncio.run(populate())
