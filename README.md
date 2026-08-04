@@ -278,35 +278,14 @@ Full interactive documentation (request/response schemas, try-it-out console) is
 
 ---
 
-## 🗺️ Future Improvements
 
-The following are **not yet implemented** but are on the roadmap:
-
-- Google OAuth login
-- GitHub OAuth login
-- Rich text editor for post authoring
-- Blog comments
-- Post likes
-- Tags & categories
-- Full-text search
-- Notifications
-- Admin dashboard
-- User roles & permissions
-- Redis caching
-- GitHub Actions CI/CD
-- Unit & integration tests
-- Rate limiting
-- Dark mode
-
----
 
 ## 👤 Author
 
 **Pruthvik L Shetty**
 
 - GitHub: [@pruthviklshetty](https://github.com/pruthviklshetty)
-- LinkedIn: _add your LinkedIn URL here_
-- Portfolio: _add your portfolio URL here_
+- LinkedIn: - www.linkedin.com/in/pruthviklshetty
 
 ---
 
