@@ -1,74 +1,134 @@
 {% extends "layout.html" %}
+
 {% block content %}
-    <div class="content-section py-3 px-4 mb-4">
-        <h2 class="mb-4">Login</h2>
-        <form id="loginForm">
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" name="username" required>
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password"
-                       class="form-control"
-                       id="password"
-                       name="password"
-                       required>
-            </div>
-            <button type="submit" class="btn btn-primary">Login</button>
-        </form>
-        <div class="mt-3">
-            <p class="mb-2">
-                <a href="{{ url_for("forgot_password_page") }}">Forgot your password?</a>
-            </p>
-            <p class="mb-0">
-                Don't have an account? <a href="{{ url_for("register_page") }}">Register here</a>
-            </p>
+<div class="content-section py-3 px-4 mb-4">
+
+    <h2 class="mb-3">Welcome Back</h2>
+
+    <p class="text-body-secondary mb-4">
+        Sign in to access your account, manage your profile, and continue publishing blog posts.
+    </p>
+
+    <form id="loginForm">
+
+        <div class="mb-3">
+
+            <label for="email" class="form-label">
+                Email Address
+            </label>
+
+            <input
+                type="email"
+                class="form-control"
+                id="email"
+                name="username"
+                placeholder="Enter your email address"
+                required>
+
         </div>
+
+        <div class="mb-3">
+
+            <label for="password" class="form-label">
+                Password
+            </label>
+
+            <input
+                type="password"
+                class="form-control"
+                id="password"
+                name="password"
+                placeholder="Enter your password"
+                required>
+
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">
+            Sign In
+        </button>
+
+    </form>
+
+    <hr class="my-4">
+
+    <div class="text-center">
+
+        <p class="mb-2">
+            <a href="{{ url_for('forgot_password_page') }}">
+                Forgot your password?
+            </a>
+        </p>
+
+        <p class="mb-0">
+            Don't have an account?
+            <a href="{{ url_for('register_page') }}">
+                Create one here
+            </a>
+        </p>
+
     </div>
+
+</div>
 {% endblock content %}
+
 {% block scripts %}
-    <script type="module">
-      import { getErrorMessage, showModal } from '/static/js/utils.js';
+<script type="module">
+import { getErrorMessage, showModal } from '/static/js/utils.js';
 
-      const loginForm = document.getElementById('loginForm');
+const loginForm = document.getElementById('loginForm');
 
-      loginForm.addEventListener('submit', async (event) => {
-        event.preventDefault();
+loginForm.addEventListener('submit', async (event) => {
 
-        const formData = new FormData(loginForm);
+    event.preventDefault();
 
-        try {
-          // OAuth2PasswordRequestForm expects form data, not JSON
-          const response = await fetch('/api/users/token', {
+    const formData = new FormData(loginForm);
+
+    try {
+
+        // OAuth2PasswordRequestForm expects form data
+        const response = await fetch('/api/users/token', {
             method: 'POST',
             body: formData,
-          });
+        });
 
-          if (response.ok) {
+        if (response.ok) {
+
             const data = await response.json();
 
-            // Store token in localStorage
+            // Store JWT token
             localStorage.setItem('access_token', data.access_token);
 
-            // Show success modal and redirect to home
             document.getElementById('successMessage').textContent =
-              'Login successful!';
+                'Welcome back! You have signed in successfully.';
+
             showModal('successModal');
 
-            document.getElementById('successModal').addEventListener('hidden.bs.modal', () => {
-              window.location.href = '/';
-            }, { once: true });
-          } else {
+            document
+                .getElementById('successModal')
+                .addEventListener('hidden.bs.modal', () => {
+                    window.location.href = '/';
+                }, { once: true });
+
+        } else {
+
             const error = await response.json();
-            document.getElementById('errorMessage').textContent = getErrorMessage(error);
+
+            document.getElementById('errorMessage').textContent =
+                getErrorMessage(error);
+
             showModal('errorModal');
-          }
-        } catch (error) {
-          document.getElementById('errorMessage').textContent =
-            'Network error. Please check your connection and try again.';
-          showModal('errorModal');
+
         }
-      });
-    </script>
+
+    } catch (error) {
+
+        document.getElementById('errorMessage').textContent =
+            'Unable to connect to the server. Please check your internet connection and try again.';
+
+        showModal('errorModal');
+
+    }
+
+});
+</script>
 {% endblock scripts %}
