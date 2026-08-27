@@ -1,9 +1,8 @@
 {% extends "layout.html" %}
 {% block content %}
-    <article class="content-section py-3 px-4 mb-4">
-        <h1>
-            <a class="article-title" href="#">Oops... {{ status_code }} Error</a>
-        </h1>
-        <p class="article-content">{{ message }}</p>
-    </article>
+    <div class="wrap wrap--reading error-page">
+        <p class="error-code">{{ status_code }}</p>
+        <p class="error-msg">{{ message }}</p>
+        <a class="read-link" href="{{ url_for('home') }}">← Back to articles</a>
+    </div>
 {% endblock content %}

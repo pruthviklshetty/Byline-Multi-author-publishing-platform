@@ -30,12 +30,30 @@ export function escapeHtml(text) {
   return div.innerHTML;
 }
 
-// Date formatting to match server's strftime("%B %d, %Y")
+// Date formatting to match server's strftime("%b %d, %Y")
 export function formatDate(dateString) {
   const date = new Date(dateString);
   return date.toLocaleDateString("en-US", {
     year: "numeric",
-    month: "long",
+    month: "short",
     day: "2-digit",
   });
+}
+
+// Estimated reading time from a plain-text body, floored at 1 minute.
+// Mirrors the reading_time() Jinja macro used in server-rendered markup.
+export function readingTime(text) {
+  const words = (text || "").trim().split(/\s+/).filter(Boolean).length;
+  return `${Math.max(1, Math.ceil(words / 200))} min read`;
+}
+
+// Word-boundary truncation with an ellipsis, mirroring Jinja's truncate filter.
+export function truncate(text, length = 170) {
+  const value = text || "";
+  if (value.length <= length) {
+    return value;
+  }
+  const clipped = value.slice(0, length);
+  const lastSpace = clipped.lastIndexOf(" ");
+  return `${clipped.slice(0, lastSpace > 0 ? lastSpace : length).trimEnd()}…`;
 }

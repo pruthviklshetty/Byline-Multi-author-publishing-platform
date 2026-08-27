@@ -1,0 +1,30 @@
+{# Reusable presentation helpers. Pure Jinja, no backend changes required. #}
+
+{# Estimated reading time from a plain-text body, floored at 1 minute. #}
+{% macro reading_time(text) -%}
+{%- set words = (text or "").split() | length -%}
+{%- set minutes = (words / 200) | round(0, "ceil") | int -%}
+{{ [minutes, 1] | max }} min read
+{%- endmacro %}
+
+{# A single article row, shared by the homepage and author pages. #}
+{% macro entry(post, number) -%}
+<li class="entry">
+    <span class="entry-num" aria-hidden="true">{{ "%02d" % number }}</span>
+    <div class="entry-body">
+        <h3 class="entry-title">
+            <a href="{{ url_for('post_page', post_id=post.id) }}">{{ post.title }}</a>
+        </h3>
+        {% if post.content %}
+            <p class="entry-excerpt">{{ post.content | truncate(170, false, "…") }}</p>
+        {% endif %}
+        <p class="entry-meta">
+            <a class="entry-author" href="{{ url_for('user_posts', user_id=post.author.id) }}">{{ post.author.username }}</a>
+            <span class="dot" aria-hidden="true">·</span>
+            <time datetime="{{ post.date_posted.isoformat() }}">{{ post.date_posted.strftime("%b %d, %Y") }}</time>
+            <span class="dot" aria-hidden="true">·</span>
+            {{ reading_time(post.content) }}
+        </p>
+    </div>
+</li>
+{%- endmacro %}

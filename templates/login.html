@@ -1,78 +1,40 @@
 {% extends "layout.html" %}
-
 {% block content %}
-<div class="content-section py-3 px-4 mb-4">
-
-    <h2 class="mb-3">Welcome Back</h2>
-
-    <p class="text-body-secondary mb-4">
-        Sign in to access your account, manage your profile, and continue publishing blog posts.
-    </p>
-
-    <form id="loginForm">
-
-        <div class="mb-3">
-
-            <label for="email" class="form-label">
-                Email Address
-            </label>
-
-            <input
-                type="email"
-                class="form-control"
-                id="email"
-                name="username"
-                placeholder="Enter your email address"
-                required>
-
+    <div class="wrap wrap--form">
+        <h1 class="auth-title">Sign in</h1>
+        <p class="auth-sub">Sign in to write and manage your articles.</p>
+        <form id="loginForm" class="form" novalidate>
+            <div class="field">
+                <label for="email">Email address</label>
+                <input type="email"
+                       id="email"
+                       name="username"
+                       autocomplete="email"
+                       placeholder="you@example.com"
+                       required>
+            </div>
+            <div class="field">
+                <label for="password">Password</label>
+                <input type="password"
+                       id="password"
+                       name="password"
+                       autocomplete="current-password"
+                       required>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn--primary btn--block">Sign in</button>
+            </div>
+        </form>
+        <div class="auth-links">
+            <a href="{{ url_for('forgot_password_page') }}">Forgot your password?</a>
+            <p>
+                New here? <a href="{{ url_for('register_page') }}">Create an account</a>
+            </p>
         </div>
-
-        <div class="mb-3">
-
-            <label for="password" class="form-label">
-                Password
-            </label>
-
-            <input
-                type="password"
-                class="form-control"
-                id="password"
-                name="password"
-                placeholder="Enter your password"
-                required>
-
-        </div>
-
-        <button type="submit" class="btn btn-primary w-100">
-            Sign In
-        </button>
-
-    </form>
-
-    <hr class="my-4">
-
-    <div class="text-center">
-
-        <p class="mb-2">
-            <a href="{{ url_for('forgot_password_page') }}">
-                Forgot your password?
-            </a>
-        </p>
-
-        <p class="mb-0">
-            Don't have an account?
-            <a href="{{ url_for('register_page') }}">
-                Create one here
-            </a>
-        </p>
-
     </div>
-
-</div>
 {% endblock content %}
-
 {% block scripts %}
-<script type="module">
+    <script type="module">
 import { getErrorMessage, showModal } from '/static/js/utils.js';
 
 const loginForm = document.getElementById('loginForm');
@@ -99,7 +61,7 @@ loginForm.addEventListener('submit', async (event) => {
             localStorage.setItem('access_token', data.access_token);
 
             document.getElementById('successMessage').textContent =
-                'Welcome back! You have signed in successfully.';
+                'Signed in. Redirecting…';
 
             showModal('successModal');
 
@@ -130,5 +92,5 @@ loginForm.addEventListener('submit', async (event) => {
     }
 
 });
-</script>
+    </script>
 {% endblock scripts %}
