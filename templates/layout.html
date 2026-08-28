@@ -4,19 +4,18 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         {% if title %}
-            <title>{{ title }} — FastAPI Blog</title>
+            <title>Byline — {{ title }}</title>
         {% else %}
-            <title>FastAPI Blog</title>
+            <title>Byline</title>
         {% endif %}
         <meta name="description"
-              content="{% block meta_description %}A server-rendered publication about FastAPI, databases, and the practical side of shipping Python services.{% endblock %}">
+              content="{% block meta_description %}Byline is a multi-author publishing platform — a shared home for writers to publish under their own name.{% endblock %}">
         <meta name="author" content="Pruthvik Shetty">
         <!-- Open Graph -->
-        <meta property="og:site_name" content="FastAPI Blog">
-        <meta property="og:title" content="{{ title ~ ' — FastAPI Blog' if title else 'FastAPI Blog' }}">
+        <meta property="og:site_name" content="Byline">
+        <meta property="og:title" content="{{ 'Byline — ' ~ title if title else 'Byline' }}">
         <meta property="og:type" content="website">
-        <meta property="og:description"
-              content="Notes on building backends, systems, and shipping software.">
+        <meta property="og:description" content="A multi-author publishing platform.">
         <!-- Set theme before paint to avoid a flash -->
         <script>
       (function () {
@@ -52,7 +51,7 @@
         <a class="skip-link" href="#main">Skip to content</a>
         <header class="masthead">
             <div class="masthead-inner">
-                <a class="wordmark" href="{{ url_for('home') }}">FastAPI Blog</a>
+                <a class="wordmark" href="{{ url_for('home') }}">Byline</a>
                 <button class="nav-toggle"
                         type="button"
                         aria-expanded="false"
@@ -102,9 +101,9 @@
         </main>
         <footer class="site-footer">
             <div class="wrap site-footer-inner">
-                <p class="site-footer-brand">FastAPI Blog</p>
+                <p class="site-footer-brand">Byline</p>
                 <p class="site-footer-meta">
-                    A server-rendered publication built with FastAPI, PostgreSQL, and AWS S3.
+                    A multi-author publishing platform, built with FastAPI, PostgreSQL, and AWS S3.
                 </p>
                 <p class="site-footer-legal">
                     © <span id="year"></span> Pruthvik Shetty

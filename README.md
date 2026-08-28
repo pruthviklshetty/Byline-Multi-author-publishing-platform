@@ -1,8 +1,8 @@
 <div align="center">
 
-# 📝 FastAPI Blog
+# 📝 Byline
 
-**A production-ready, server-rendered blogging platform built with FastAPI**
+**A multi-author publishing platform, built with FastAPI.**
 
 Async PostgreSQL · JWT Authentication · AWS S3 Image Uploads · Email Password Reset · Docker · Deployed on Render
 
@@ -22,7 +22,7 @@ Async PostgreSQL · JWT Authentication · AWS S3 Image Uploads · Email Password
 
 ## 📖 Overview
 
-**FastAPI Blog** is a full-stack, server-rendered blogging platform where users can register, securely authenticate, write and manage blog posts, upload profile pictures to AWS S3, reset passwords via email, and browse posts with pagination.
+**Byline** is a multi-author publishing platform where users register, authenticate, write and manage posts under their own byline, upload profile pictures to AWS S3, reset passwords via email, and browse posts with pagination.
 
 The project follows modern backend engineering practices: asynchronous database operations, Alembic-managed migrations, Docker containerization, environment-based configuration, secure authentication, and cloud deployment — built to mirror the structure of a real production system rather than a simple CRUD demo.
 

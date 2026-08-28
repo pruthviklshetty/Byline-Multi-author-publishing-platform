@@ -25,9 +25,6 @@ async def lifespan(_app: FastAPI):
     yield
     # Shutdown
     await engine.dispose()
-import mimetypes
-mimetypes.add_type("text/css", ".css")
-mimetypes.add_type("application/javascript", ".js")
 
 app = FastAPI(lifespan=lifespan)
 
