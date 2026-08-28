@@ -39,6 +39,24 @@ app.mount(
 
 templates = Jinja2Templates(directory=BASE_DIR / "templates")
 
+
+def static_url(path: str) -> str:
+    """URL for a file under /static with a cache-busting ?v= from its mtime.
+
+    StaticFiles sends no Cache-Control header, so browsers heuristically hold
+    onto old copies at the same URL. Appending the file's modified time forces
+    a fresh fetch whenever the asset actually changes.
+    """
+    version = 0
+    try:
+        version = int((BASE_DIR / "static" / path).stat().st_mtime)
+    except OSError:
+        pass
+    return f"/static/{path}?v={version}"
+
+
+templates.env.globals["static_url"] = static_url
+
 app.include_router(users.router, prefix="/api/users", tags=["users"])
 app.include_router(posts.router, prefix="/api/posts", tags=["posts"])
 
