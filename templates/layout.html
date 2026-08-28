@@ -298,10 +298,11 @@
             showModal('successModal');
             createForm.reset();
 
+            // Refresh so the new post appears; auto-dismiss the confirmation.
+            const refresh = () => { window.location.reload(); };
+            setTimeout(refresh, 1400);
             document.getElementById('successModal').addEventListener(
-              'hidden.bs.modal',
-              () => { window.location.reload(); },
-              { once: true },
+              'hidden.bs.modal', refresh, { once: true },
             );
           } else {
             const error = await response.json();

@@ -162,9 +162,11 @@
                 hideModal('editModal');
                 showModal('successModal');
 
-                document.getElementById('successModal').addEventListener('hidden.bs.modal', () => {
-                    window.location.reload();
-                }, { once: true });
+                // Refresh to show the edit; auto-dismiss the confirmation.
+                const refresh = () => { window.location.reload(); };
+                setTimeout(refresh, 1400);
+                document.getElementById('successModal').addEventListener(
+                    'hidden.bs.modal', refresh, { once: true });
             } else {
                 const error = await response.json();
                 document.getElementById('errorMessage').textContent = getErrorMessage(error);

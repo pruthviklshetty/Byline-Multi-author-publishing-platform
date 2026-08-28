@@ -118,13 +118,13 @@ registerForm.addEventListener('submit', async (event) => {
 
             showModal('successModal');
 
+            // Move on to the sign-in page automatically; closing the dialog
+            // early just gets there sooner.
+            const goToLogin = () => { window.location.href = '/login'; };
+            setTimeout(goToLogin, 1600);
             document
                 .getElementById('successModal')
-                .addEventListener('hidden.bs.modal', () => {
-
-                    window.location.href = '/login';
-
-                }, { once: true });
+                .addEventListener('hidden.bs.modal', goToLogin, { once: true });
 
         } else {
 

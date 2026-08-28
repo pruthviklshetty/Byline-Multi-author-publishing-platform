@@ -57,19 +57,11 @@ loginForm.addEventListener('submit', async (event) => {
 
             const data = await response.json();
 
-            // Store JWT token
+            // Store JWT token and go straight to the homepage — the redirect
+            // is the confirmation, no dismiss-me dialog needed.
             localStorage.setItem('access_token', data.access_token);
 
-            document.getElementById('successMessage').textContent =
-                'Signed in. Redirecting…';
-
-            showModal('successModal');
-
-            document
-                .getElementById('successModal')
-                .addEventListener('hidden.bs.modal', () => {
-                    window.location.href = '/';
-                }, { once: true });
+            window.location.href = '/';
 
         } else {
 
