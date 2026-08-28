@@ -1,11 +1,12 @@
 from email.message import EmailMessage
+from pathlib import Path
 
 import aiosmtplib
 from fastapi.templating import Jinja2Templates
 
 from config import settings
 
-templates = Jinja2Templates(directory="templates")
+templates = Jinja2Templates(directory=Path(__file__).resolve().parent / "templates")
 
 
 async def send_email(
