@@ -363,6 +363,13 @@ h4 {
   gap: 1.4rem;
 }
 
+/* Nav auth state — driven by the head script so the right set paints
+   immediately, with no logged-out flash on refresh. */
+html.is-authed #loggedOutNav,
+html:not(.is-authed) #loggedInNav {
+  display: none;
+}
+
 .nav-link {
   padding: 0;
   border: 0;

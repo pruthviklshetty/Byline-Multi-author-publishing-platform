@@ -16,7 +16,7 @@
         <meta property="og:title" content="{{ 'Byline — ' ~ title if title else 'Byline' }}">
         <meta property="og:type" content="website">
         <meta property="og:description" content="A multi-author publishing platform.">
-        <!-- Set theme before paint to avoid a flash -->
+        <!-- Set theme + auth nav state before paint to avoid a flash -->
         <script>
       (function () {
         try {
@@ -24,6 +24,10 @@
           var dark = t === 'dark' ||
             (t === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
           document.documentElement.setAttribute('data-bs-theme', dark ? 'dark' : 'light');
+        } catch (e) {}
+        try {
+          document.documentElement.classList.toggle(
+            'is-authed', !!localStorage.getItem('access_token'));
         } catch (e) {}
       })();
         </script>
@@ -63,7 +67,7 @@
                         <a class="nav-link" href="{{ url_for('login_page') }}">Sign in</a>
                         <a class="btn btn--primary btn--sm" href="{{ url_for('register_page') }}">Create account</a>
                     </span>
-                    <span id="loggedInNav" class="nav-group d-none">
+                    <span id="loggedInNav" class="nav-group">
                         <button class="nav-link"
                                 type="button"
                                 data-bs-toggle="modal"
@@ -234,19 +238,15 @@
       import { getCurrentUser, logout } from '/static/js/auth.js';
 
       async function updateAuthUI() {
+        // The head script already set .is-authed optimistically from the stored
+        // token so the correct nav paints immediately. This reconciles it with
+        // the real answer (e.g. an expired token) and fills in the username.
         const user = await getCurrentUser();
-        const loggedInNav = document.getElementById('loggedInNav');
-        const loggedOutNav = document.getElementById('loggedOutNav');
         const accountBtn = document.getElementById('accountBtn');
 
-        if (user) {
-          loggedInNav.classList.remove('d-none');
-          loggedOutNav.classList.add('d-none');
-          if (accountBtn) accountBtn.textContent = user.username || 'Account';
-        } else {
-          loggedInNav.classList.add('d-none');
-          loggedOutNav.classList.remove('d-none');
-          if (accountBtn) accountBtn.textContent = 'Account';
+        document.documentElement.classList.toggle('is-authed', !!user);
+        if (accountBtn) {
+          accountBtn.textContent = user ? (user.username || 'Account') : 'Account';
         }
       }
 
