@@ -34,7 +34,7 @@ The project follows modern backend engineering practices: asynchronous database 
 
 | Resource | Link |
 |---|---|
-| 🌐 Application | [fastapi-blog-x6vf.onrender.com](https://byline-de9h.onrender.com) |
+| 🌐 Application | [https://byline-de9h.onrender.com](https://byline-de9h.onrender.com) |
 | 📑 Swagger API Docs | [/docs](https://byline-de9h.onrender.com/docs) |
 | 💓 Health Endpoint | [/health](https://byline-de9h.onrender.com/health) |
 
